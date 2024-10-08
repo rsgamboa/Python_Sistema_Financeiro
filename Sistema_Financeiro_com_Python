@@ -1,3 +1,5 @@
+import textwrap
+
 def menu():
     menu = """\n
     ================ MENU ================
@@ -10,6 +12,19 @@ def menu():
     [q]\tSair
     => """
     return input(textwrap.dedent(menu))
+
+def exibir_mensagem(tipo, texto, titulo=None):
+    if titulo:
+        print(f"\n=== {titulo} ===")
+
+    if tipo == "erro":
+        print(f"\n*-*- ERRO: {texto} -*-*")
+    elif tipo == "sucesso":
+        print(f"\n=== SUCESSO: {texto} ===")
+    elif tipo == "info":
+        print(f"\n=== INFO: {texto} ===")
+    else:
+        print(f"\n{texto}")
 
 
 if __name__ == "__main__":
