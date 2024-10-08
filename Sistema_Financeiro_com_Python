@@ -26,6 +26,38 @@ def exibir_mensagem(tipo, texto, titulo=None):
     else:
         print(f"\n{texto}")
 
+def depositar(saldo, valor, extrato):
+    if valor <= 0:
+        exibir_mensagem("erro", "Operação falhou! O valor informado é inválido.")
+        return saldo, extrato
+
+    saldo += valor
+    extrato += f"Depósito:\tR$ {valor:.2f}\n"
+    exibir_mensagem("sucesso", "Depósito realizado com sucesso!")
+    return saldo, extrato
+
+def sacar(saldo, valor, extrato, limite, numero_saques, limite_saques):
+    if valor <= 0:
+        return saldo, extrato, "Operação falhou! O valor informado é inválido."
+
+    if valor > saldo:
+        return saldo, extrato, "Operação falhou! Você não tem saldo suficiente."
+    if valor > limite:
+        return saldo, extrato, "Operação falhou! O valor do saque excede o limite."
+    if numero_saques >= limite_saques:
+        return saldo, extrato, "Operação falhou! Número máximo de saques excedido."
+    
+    saldo -= valor
+    extrato += f"Saque:\t\tR$ {valor:.2f}\n"
+    numero_saques += 1
+    return saldo, extrato, "Saque realizado com sucesso!"
+
+def exibir_extrato(saldo, extrato):
+    print("\n================ EXTRATO ================")
+    print("Não foram realizadas movimentações." if not extrato else extrato)
+    print(f"\nSaldo:\t\tR$ {saldo:.2f}")
+    print("==========================================")
+
 
 if __name__ == "__main__":
     main()
